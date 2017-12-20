@@ -1,0 +1,26 @@
+{
+  "parameters": {
+    "serverName": "targetserver",
+    "resourceGroupName": "TargetResourceGroup",
+    "api-version": "2017-04-30-preview",
+    "subscriptionId": "ffffffff-ffff-ffff-ffff-ffffffffffff",
+    "parameters": {
+      "location": "Japan West",
+      "properties": {
+        "createMode": "GeoRestore",
+        "sourceServerId": "/subscriptions/ffffffff-ffff-ffff-ffff-ffffffffffff/resourceGroups/SourceResourceGroup/providers/Microsoft.DBforPostgreSQL/servers/sourceserver"
+      },
+      "sku": {
+        "name": "SkuName",
+        "tier": "Standard",
+        "capacity": 100
+      },
+      "tags": {
+        "ElasticServer": "1"
+      }
+    }
+  },
+  "responses": {
+    "202": {}
+  }
+}

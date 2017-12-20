@@ -1,0 +1,27 @@
+{
+  "parameters": {
+    "serverName": "targetserver",
+    "resourceGroupName": "TargetResourceGroup",
+    "api-version": "2017-04-30-preview",
+    "subscriptionId": "ffffffff-ffff-ffff-ffff-ffffffffffff",
+    "parameters": {
+      "location": "brazilsouth",
+      "properties": {
+        "restorePointInTime": "2017-12-14T00:00:37.467Z",
+        "createMode": "PointInTimeRestore",
+        "sourceServerId": "/subscriptions/ffffffff-ffff-ffff-ffff-ffffffffffff/resourceGroups/SourceResourceGroup/providers/Microsoft.DBforPostgreSQL/servers/sourceserver"
+      },
+      "sku": {
+        "name": "SkuName",
+        "tier": "Basic",
+        "capacity": 100
+      },
+      "tags": {
+        "ElasticServer": "1"
+      }
+    }
+  },
+  "responses": {
+    "202": {}
+  }
+}

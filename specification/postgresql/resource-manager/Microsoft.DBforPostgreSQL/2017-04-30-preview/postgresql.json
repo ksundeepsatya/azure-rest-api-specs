@@ -41,7 +41,9 @@
         ],
         "operationId": "Servers_Create",
         "x-ms-examples": {
-          "ServerCreate": { "$ref": "./examples/ServerCreate.json" }
+          "Create a new server": { "$ref": "./examples/ServerCreate.json" },
+          "Create a server as a point in time restore": { "$ref": "./examples/ServerCreatePITRMode.json" },
+          "Create a server as a geo restore ": { "$ref": "./examples/ServerCreateGeoRestoreMode.json" }
         },
         "description": "Creates a new server, or will overwrite an existing server.",
         "parameters": [
@@ -1210,7 +1212,8 @@
           "description": "The mode to create a new server.",
           "enum": [
             "Default",
-            "PointInTimeRestore"
+            "PointInTimeRestore",
+            "GeoRestore"
           ],
           "x-ms-enum": {
             "name": "CreateMode",
@@ -1244,8 +1247,32 @@
       ],
       "description": "The properties used to create a new server."
     },
-    "ServerPropertiesForRestore": {
-      "x-ms-discriminator-value": "PointInTimeRestore",
+    "ServerPropertiesForPITRestore": {
+        "x-ms-discriminator-value": "PointInTimeRestore",
+        "allOf": [
+            {
+                "$ref": "#/definitions/ServerPropertiesForCreate"
+            }
+        ],
+        "properties": {
+            "sourceServerId": {
+                "type": "string",
+                "description": "The source server id to restore from."
+            },
+            "restorePointInTime": {
+                "type": "string",
+                "format": "date-time",
+                "description": "Restore point creation time (ISO8601 format), specifying the time to restore from."
+            }
+        },
+        "required": [
+            "sourceServerId",
+            "restorePointInTime"
+        ],
+        "description": "The properties used to create a new server by restoring from a backup."
+    },
+    "ServerPropertiesForGeoRestore": {
+      "x-ms-discriminator-value": "GeoRestore",
       "allOf": [
         {
           "$ref": "#/definitions/ServerPropertiesForCreate"
@@ -1255,18 +1282,12 @@
         "sourceServerId": {
           "type": "string",
           "description": "The source server id to restore from."
-        },
-        "restorePointInTime": {
-          "type": "string",
-          "format": "date-time",
-          "description": "Restore point creation time (ISO8601 format), specifying the time to restore from."
         }
       },
       "required": [
-        "sourceServerId",
-        "restorePointInTime"
+        "sourceServerId"
       ],
-      "description": "The properties to a new server by restoring from a backup."
+      "description": "The properties used to create a new server by restoring to a different region from a geo replicated backup."
     },
     "Sku": {
       "properties": {
